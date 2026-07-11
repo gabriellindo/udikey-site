@@ -3,7 +3,7 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/servico/:codigo", "destination": "/servico.html" }
+    { "source": "/servico/:codigo", "destination": "/servico" }
   ],
   "headers": [
     {
