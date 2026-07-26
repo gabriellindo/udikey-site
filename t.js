@@ -18,10 +18,10 @@
   var CHAVE_REF = 'udikey_ref';
   var PING_MS = 60000; // "online agora" no painel usa janela de 5 min
 
-  // Respeita quem pediu pra não ser rastreado.
-  try {
-    if (navigator.doNotTrack === '1' || window.doNotTrack === '1') return;
-  } catch (e) {}
+  // Obs.: NÃO checamos "Do Not Track". Aqui não se coleta nada pessoal — sem IP,
+  // sem cookie, sem nome/e-mail, sem rastrear a pessoa por outros sites. É só uma
+  // contagem anônima de acessos do próprio site, e ela precisa ser fiel: é com
+  // esse número que se decide quanto cada influenciador trouxe de gente.
 
   function guardar(k, v) {
     try {
