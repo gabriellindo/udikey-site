@@ -75,9 +75,16 @@
     var texto = JSON.stringify(corpo);
     try {
       // sendBeacon não segura a navegação (ideal pra clique que sai da página).
+      // ⚠️ O tipo TEM que ser text/plain: com application/json o navegador exige
+      // uma checagem CORS prévia (preflight), que o sendBeacon não sabe fazer —
+      // e aí ele descarta o envio EM SILÊNCIO (foi o que aconteceu no 1º teste).
+      // text/plain é aceito direto; o coletor lê o corpo como JSON do mesmo jeito.
       if (navigator.sendBeacon) {
-        navigator.sendBeacon(COLETOR, new Blob([texto], { type: 'application/json' }));
-        return;
+        var ok = navigator.sendBeacon(
+          COLETOR,
+          new Blob([texto], { type: 'text/plain;charset=UTF-8' }),
+        );
+        if (ok) return;
       }
     } catch (e) {}
     try {
