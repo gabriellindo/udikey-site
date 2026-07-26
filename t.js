@@ -16,6 +16,7 @@
   var COLETOR = 'https://admin.udikey.com/api/t';
   var CHAVE_SESSAO = 'udikey_sid';
   var CHAVE_REF = 'udikey_ref';
+  var CHAVE_CLIQUE = 'udikey_clicou'; // 1 clique de "baixar" por aparelho
   var PING_MS = 60000; // "online agora" no painel usa janela de 5 min
 
   // Obs.: NÃO checamos "Do Not Track". Aqui não se coleta nada pessoal — sem IP,
@@ -124,6 +125,11 @@
         txt.indexOf('baixar') >= 0 ||
         txt.indexOf('parceiro') >= 0
       ) {
+        // Conta UMA vez por aparelho: a mesma pessoa clicando 10 vezes não pode
+        // virar "10 interessados" no painel do creator. (O painel também conta
+        // por aparelho na leitura, então dado antigo repetido já sai certo.)
+        if (ler(CHAVE_CLIQUE)) return;
+        guardar(CHAVE_CLIQUE, '1');
         evento('clique_baixar');
       }
     },
