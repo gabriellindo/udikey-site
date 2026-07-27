@@ -3,4 +3,5 @@
   <url><loc>https://udikey.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
   <url><loc>https://udikey.com/privacidade</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
   <url><loc>https://udikey.com/termos</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://udikey.com/excluir-conta</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
 </urlset>
