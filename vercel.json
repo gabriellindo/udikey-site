@@ -2,6 +2,13 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "https://udikey.com.br",
+      "permanent": false
+    }
+  ],
   "rewrites": [
     { "source": "/servico/:codigo", "destination": "/servico" }
   ],
