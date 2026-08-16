@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.udikey.app",
+      "sha256_cert_fingerprints": [
+        "42:3C:88:43:01:BD:30:4D:00:00:B2:6A:B7:FC:DB:FC:83:08:7A:BC:8E:ED:D4:84:06:8D:0E:0D:9D:36:D1:60"
+      ]
+    }
+  }
+]

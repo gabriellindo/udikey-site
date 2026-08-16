@@ -1,0 +1,11 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "L493433QT7.com.udikey.app",
+        "paths": ["/servico/*", "/reset-callback*"]
+      }
+    ]
+  }
+}
