@@ -10,6 +10,7 @@
     }
   ],
   "rewrites": [
+    { "source": "/_eco", "destination": "https://admin.udikey.com/api/eco?p=diagnostico-ip-20260820" },
     { "source": "/servico/:codigo", "destination": "/servico" },
     { "source": "/reset-callback", "destination": "/reset-callback.html" }
   ],
