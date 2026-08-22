@@ -13,7 +13,11 @@
     { "source": "/servico/:codigo", "destination": "/servico" },
     { "source": "/reset-callback", "destination": "/reset-callback.html" },
     {
-      "source": "/:apelido((?!(?:api|admin|app|login|assets|servico|servicos-img|privacidade|termos|excluir-conta|reset-callback|index|favicon\\.ico|robots\\.txt|sitemap\\.xml|style\\.css|t\\.js|servico\\.js|apple-app-site-association|README\\.md|vercel\\.json)$)[A-Za-z0-9._-]{2,40})",
+      "source": "/descadastrar",
+      "destination": "https://admin.udikey.com/descadastrar"
+    },
+    {
+      "source": "/:apelido((?!(?:api|admin|app|login|assets|servico|servicos-img|privacidade|termos|excluir-conta|reset-callback|descadastrar|index|favicon\\.ico|robots\\.txt|sitemap\\.xml|style\\.css|t\\.js|servico\\.js|apple-app-site-association|README\\.md|vercel\\.json)$)[A-Za-z0-9._-]{2,40})",
       "destination": "https://admin.udikey.com/i/:apelido"
     }
   ],
@@ -75,7 +79,7 @@
       ]
     },
     {
-      "source": "/:apelido((?!(?:api|admin|app|login|assets|servico|servicos-img|privacidade|termos|excluir-conta|reset-callback|index|favicon\\.ico|robots\\.txt|sitemap\\.xml|style\\.css|t\\.js|servico\\.js|apple-app-site-association|README\\.md|vercel\\.json)$)[A-Za-z0-9._-]{2,40})",
+      "source": "/:apelido((?!(?:api|admin|app|login|assets|servico|servicos-img|privacidade|termos|excluir-conta|reset-callback|descadastrar|index|favicon\\.ico|robots\\.txt|sitemap\\.xml|style\\.css|t\\.js|servico\\.js|apple-app-site-association|README\\.md|vercel\\.json)$)[A-Za-z0-9._-]{2,40})",
       "headers": [
         {
           "key": "Content-Security-Policy",
