@@ -5,8 +5,8 @@
 
    O que é guardado: um id de SESSÃO anônimo (gerado aqui, não identifica
    ninguém), o caminho da página, de qual creator veio (?ref=) e as UTMs.
-   NÃO guardamos nome, e-mail, IP nem nada pessoal — e não usamos cookie:
-   é localStorage, do próprio site.
+   NÃO guardamos nome, e-mail nem IP cru — e não usamos cookie. Os marcadores
+   ficam só no sessionStorage e somem quando a sessão da aba termina.
 
    Sem dependência, sem biblioteca de terceiro.
    ============================================================ */
@@ -16,7 +16,7 @@
   var COLETOR = 'https://admin.udikey.com/api/t';
   var CHAVE_SESSAO = 'udikey_sid';
   var CHAVE_REF = 'udikey_ref';
-  var CHAVE_CLIQUE = 'udikey_clicou'; // 1 clique de "baixar" por aparelho
+  var CHAVE_CLIQUE = 'udikey_clicou'; // 1 clique de "baixar" por sessão
   var PING_MS = 60000; // "online agora" no painel usa janela de 5 min
 
   // Obs.: NÃO checamos "Do Not Track". Aqui não se coleta nada pessoal — sem IP,
@@ -26,12 +26,12 @@
 
   function guardar(k, v) {
     try {
-      localStorage.setItem(k, v);
+      sessionStorage.setItem(k, v);
     } catch (e) {}
   }
   function ler(k) {
     try {
-      return localStorage.getItem(k);
+      return sessionStorage.getItem(k);
     } catch (e) {
       return null;
     }
@@ -42,10 +42,9 @@
   var sid = ler(CHAVE_SESSAO);
   if (!sid) {
     novo = true;
-    sid =
-      Date.now().toString(36) +
-      Math.random().toString(36).slice(2, 10) +
-      Math.random().toString(36).slice(2, 6);
+    sid = self.crypto && typeof self.crypto.randomUUID === 'function'
+      ? self.crypto.randomUUID()
+      : Date.now().toString(36) + Math.random().toString(36).slice(2, 14);
     guardar(CHAVE_SESSAO, sid);
   }
 
@@ -71,7 +70,17 @@
       utm_campaign: q.get('utm_campaign'),
       caminho: location.pathname.slice(0, 120),
       plataforma: 'web',
-      referrer: document.referrer ? document.referrer.slice(0, 200) : null,
+      // Caminho e query do referrer podem carregar tokens ou dados pessoais.
+      // A origem (ex.: https://instagram.com) basta para a atribuição.
+      referrer: (function () {
+        if (!document.referrer) return null;
+        try {
+          var u = new URL(document.referrer);
+          return u.protocol === 'http:' || u.protocol === 'https:' ? u.origin.slice(0, 200) : null;
+        } catch (e) {
+          return null;
+        }
+      })(),
     };
     var texto = JSON.stringify(corpo);
     try {
@@ -125,9 +134,9 @@
         txt.indexOf('baixar') >= 0 ||
         txt.indexOf('parceiro') >= 0
       ) {
-        // Conta UMA vez por aparelho: a mesma pessoa clicando 10 vezes não pode
+        // Conta UMA vez por sessão: a mesma pessoa clicando 10 vezes não pode
         // virar "10 interessados" no painel do creator. (O painel também conta
-        // por aparelho na leitura, então dado antigo repetido já sai certo.)
+        // por sessão na leitura, então dado antigo repetido já sai certo.)
         if (ler(CHAVE_CLIQUE)) return;
         guardar(CHAVE_CLIQUE, '1');
         evento('clique_baixar');
