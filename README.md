@@ -12,6 +12,11 @@ estilo iFood/Uber.
 - `/` — landing (index.html): hero, como funciona, serviços, para chaveiros, CTA.
 - `/privacidade` — Política de Privacidade (privacidade.html). URL usada na Play Store.
 - `/termos` — Termos de Uso, cliente e chaveiro (termos.html).
+- `/app` — abre o app UDIkey (app.html + app.js; desde 2026-10-08). É o link do WhatsApp
+  que avisa os chaveiros "tem pedido, fique online": tenta `udikey://` (no Android,
+  `intent://` com a Play Store de reserva) e, se o app não abrir em 2,2 s, mostra a loja.
+  Não é declarada no `apple-app-site-association` de propósito: o app não tem rota `/app`
+  e abriria numa tela de "não encontrado".
 - `style.css` — design system (escuro + dourado, igual ao app).
 - `vercel.json` — cleanUrls (URLs sem .html) + headers.
 - `robots.txt`, `sitemap.xml` — SEO (o site é indexável, ao contrário do painel).
